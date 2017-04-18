@@ -1,0 +1,49 @@
+<div ng-switch on="fileUploaded">
+
+  <div class="object-asset-container media attachment-box" ng-switch-when='true'>
+    <div class="media-image attachment-preview pull-left">
+      <div ng-hide="upload.isImage" class="attachment-file-icon fa fa-file-text-o"></div>
+      <a href="{{upload.url}}" target="_blank" class="attachment-preview-link">
+        <img ng-show="upload.isImage" ng-src="{{upload.url}}" alt="{{upload.filename}}" class="block-element">
+      </a>
+    </div>
+    <div class="media-body attachment-info">
+      <div class="attachment-name" title="{{upload.filename}}">{{upload.filename}}</div>
+      <div class="attachment-size">{{upload.file_size}}</div>
+    </div>
+    <div class="remove-attachment-icon fa fa-times" ng-click="removeUpload()"></div>
+  </div>
+
+
+  <div ng-switch-when='false'>
+
+    <div ng-show="progressstatus" class="object-asset-progress">
+      <div class="progress progress-striped active">
+        <div class="progress-bar bg-color-darken" role="progressbar" style="width: 100%">
+          Uploading...
+        </div>
+      </div>
+    </div>
+    <div ng-if="!viewonly">
+    <div ng-show="!progressstatus" formbuilder-upload authtoken="authtoken" url="url" apikey="apikey" apihost="apihost" prop="prop" randvalue="randvalue" tenant="tenant">
+        <div class="pull-left">
+          <div class="upload-file-button-wrap">
+            <div class="btn btn-info fileinput-button"> <i class="fa fa-plus"></i> 
+              <span>Upload file...</span>
+              <input type="file" class="object-file-input object-field-input invisible-input" name="upload[upload]" onchange="angular.element(this).scope().uploadFile(this)">
+            </div>
+            <span class="ml5">or</span>
+            <a class="btn-asset-gallery" ng-click="showGallery()">Choose from uploads</a>
+          </div>
+          <div class="field-asset-preview-wrap"></div>
+        </div>
+      </div>
+    </div>
+    
+    <span href="" ng-if="viewonly" class="btn btn-link btn-sm mb15 ng-scope" disabled="">---</span>
+    
+  </div>
+</div>
+
+
+

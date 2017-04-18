@@ -1,0 +1,76 @@
+<div class="asset-gallery-view">
+    <div class="ag-tabs">
+      <ul class="nav nav-tabs">
+        <li ng-class="{'active':activeFilter==='all'}">
+            <a class="hand" ng-click="getAssets('all')">All</a>
+        </li>
+        <li ng-class="{'active':activeFilter==='images'}">
+            <a class="hand" ng-click="getAssets('images')">Images</a>
+        </li>
+        <li ng-class="{'active':activeFilter==='videos'}">
+            <a class="hand" ng-click="getAssets('videos')">Videos</a>
+        </li>
+        <li class="pull-right">
+          <span  class="btn-refresh" ng-click="burstGalleryCache()">
+           <i ng-class="{'fa-spin': isRefreshing}" class="fa fa-refresh"></i> Refresh
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="ag-tabs-content grid-mode">
+        <div class="tab-pane" id="ag-all" ng-class="{'active': activeFilter === 'all'}">
+            <div class="asset-box" ng-repeat="item in assets.all.data" ng-click="selected.item = item" ng-class="{active:isActive(item)}" ng-dblclick='itemDirectUpload(item)'>
+                <div class="asset-box-inner">
+                    <div class="asset-preview-wrap">
+                        <img ng-if="item.isImage" ng-src="{{item.url}}" alt="{{item.filename}}">
+                        <div ng-if="!item.isImage" class="fa fa-file-text-o asset-preview-icon"></div>
+                    </div>
+                    <div class="asset-details-wrap">
+                        <div class="asset-name" title="">{{item.filename}}</div>
+                        <div class="asset-size-type ">{{item.file_size}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-loader">
+            	<img alt="" src="images/loaders/block-loader.gif" />
+            </div>
+            <div class="btn btn-default btn-block btn-sm js-btn-load-more-all" ng-if="assets.all.data.length !== assets.all.total" ng-click="getMoreAssets('all', $event)">Load more</div>
+        </div>
+        <div class="tab-pane" id="ag-images" ng-class="{'active': activeFilter === 'images'}">
+            <div class="asset-box" ng-repeat="item in assets.images.data" data-loading-text="Loading..." ng-click="selected.item = item" ng-class="{active:isActive(item)}" ng-dblclick='itemDirectUpload(item)'>
+                <div class="asset-box-inner">
+                    <div class="asset-preview-wrap">
+                        <img ng-if="item.isImage" ng-src="{{item.url}}" alt="{{item.filename}}">
+                        <div ng-if="!item.isImage" class="fa fa-file-text-o asset-preview-icon"></div>
+                    </div>
+                    <div class="asset-details-wrap">
+                        <div class="asset-name" title="">{{item.filename}}</div>
+                        <div class="asset-size-type ">{{item.file_size}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-loader">
+                <img alt="" src="images/loaders/block-loader.gif" />
+            </div>
+            <div class="btn btn-default btn-block btn-sm js-btn-load-more-images" data-loading-text="Loading..." ng-if="assets.images.data.length !== assets.images.total" ng-click="getMoreAssets('images', $event)">Load more</div>
+        </div>
+        <div class="tab-pane" id="ag-videos" ng-class="{'active': activeFilter === 'videos'}">
+            <div class="asset-box" ng-repeat="item in assets.videos.data" ng-click="selected.item = item" ng-class="{active:isActive(item)}" ng-dblclick='itemDirectUpload(item)'>
+                <div class="asset-box-inner">
+                    <div class="asset-preview-wrap">
+                        <img ng-if="item.isImage" ng-src="{{item.url}}" alt="{{item.filename}}">
+                        <div ng-if="!item.isImage" class="fa fa-file-text-o asset-preview-icon"></div>
+                    </div>
+                    <div class="asset-details-wrap">
+                        <div class="asset-name" title="">{{item.filename}}</div>
+                        <div class="asset-size-type ">{{item.file_size}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-loader">
+                <img alt="" src="images/loaders/block-loader.gif" />
+            </div>
+            <div class="btn btn-default btn-block btn-sm js-btn-load-more-videos" data-loading-text="Loading..." ng-if="assets.videos.data.length !== assets.videos.total" ng-click="getMoreAssets('videos', $event)">Load more</div>
+        </div>
+    </div>
+</div>

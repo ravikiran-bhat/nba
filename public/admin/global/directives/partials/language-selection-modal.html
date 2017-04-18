@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h3 class="modal-title">Set Languages
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">
+      ×
+    </button>
+  </h3>
+</div>
+<div class="modal-body">
+  <p class="mute">
+    Check the languages to send your notification in. The English version will be used for languages that are not checked. The number in parentheses represent the number of devices subscribed with that language.
+  </p>
+ <form class="custom-languages-form">
+    <div class="lang-selection" ng-repeat="(key, value) in languages">
+      <label class="checkbox-inline">
+        <input type="checkbox" ng-click="selectLanguage(key)" ng-checked="selectedLanguages.indexOf(key)>=0">
+        {{value}}
+      </label>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <div class="button-wrap">
+    <button class="btn btn-primary btn-sm pull-right" ng-click="ok()">
+      <span class="btn-label">
+        <i class="fa fa-check"></i>
+      </span>
+      <span class="js-btn-text">
+        Apply
+      </span>
+    </button>
+  </div>
+</div>

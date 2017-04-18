@@ -1,0 +1,14 @@
+{
+  "name": "custom-ui-package",
+  "dependencies": {
+    "compression"       : "1.0.11",
+    "express"           : "4.2.0",
+    "forwarded-for"     : "^1.0.0",
+    "simple-http-proxy" : "0.5.11",
+    "ramda"             : "0.21.0"
+  },
+  "dependenciesIgnore": ["simple-http-proxy"],
+  "scripts": {
+    "start": "node server"
+  }
+}

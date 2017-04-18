@@ -1,0 +1,204 @@
+<div class="acl-console">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">
+      ×
+    </button>
+
+    <h3 class="modal-title smart-form">
+      <span ng-if="data.isDefault">Configure Default ACL</span>
+      <span ng-if="!data.isDefault">Configure ACL</span>
+      <label class="toggle" ng-if="!data.isDefault">
+        <input type="checkbox" name="checkbox-toggle" ng-init="aclDisableModel = !data.ACL.disable" ng-model="aclDisableModel" ng-change="data.ACL.disable = !aclDisableModel">
+        <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i>
+      </label>
+    </h3>
+    <div ng-if="!data.isDefault">
+      <p ng-if="!data.ACL.disable">This object is restricted as per the ACL given below. Turn off ACL to make it public</p>
+      <p ng-if="data.ACL.disable">This object is public, readable to everyone. and writable only by its owners, Turn on ACL to limit access</p>
+    </div>
+  </div>
+  <div class="modal-body">
+    <ul id="myTab1" class="nav nav-tabs acl-nav-tabs">
+      <li class="active">
+        <a data-toggle="tab" ng-click="getACLType('users')">Users</a>
+      </li>
+      <li class="">
+        <a data-toggle="tab" ng-click="getACLType('roles')">Roles</a>
+      </li>
+      <li class="dropdown">
+        <a data-toggle="tab" ng-click="getACLType('others')">Everyone else</a>
+      </li>
+
+    </ul>
+
+    <div class="tab-content acl-tabs-content">
+      <div class="tab-pane fade active in acl-tab-pane" ng-class="{hidden:ACLType!='users'}">
+        <div class="acl-list-wrap">
+          <div class="acl-list">
+            <div class="acl-item animated blue-fade-5" ng-repeat="user in data.ACL.users track by $index">
+              <table>
+                <tr>
+                  <td>
+                    <div class="acl-details-wrap">
+                      <p ng-if="user.first_name || user.last_name">
+                        {{user.first_name}} {{user.last_name}} 
+                      </p>
+                      <p ng-if="user.username">
+                        {{user.username}}    
+                      </p>
+                      <p>
+                        {{user.email}}
+                      </p>
+                      <p>
+                        {{user.uid}}
+                      </p>
+                      <p class="mute" ng-if='user._tenant'>
+                        Tenant: {{user._tenant}}
+                      </p>
+                    </div>
+                  </td>
+                  <td class="acl-rights-wrap">
+                    <div class="acl-rights">
+                      <label class="checkbox-inline" ng-repeat="right in data.rights">
+                        <div indeterminate-checkbox="user[right]" class-name="'user-acl1-checkbox'+ $index + $parent.$index"></div>
+                        <!-- <input type="checkbox" class="checkbox style-0" ng-model="user[right]"> -->
+                        <span>{{right}}</span>
+                      </label>
+                    </div>
+                  </td>
+                  <td class="remove-acl">
+                    <button type="button" class="close" ng-click='removeACL($index, data.ACL.users)'>
+                      &times;
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <legend>
+          Add more users
+        </legend>
+        <div class="row">
+          <div class="col-md-6">
+            <input id="acl-users-select" class="acl-user-select" acl-select="" data="data" acl-type="users" selecteddata="userSelectedData" type="text" apihost="apihost" apikey="apikey" prefix="prefix" authtoken="authtoken"/>
+            <div class="button-wrap mt5">
+              <button class="btn btn-info pull-right ml5 btn-sm" ng-click="addToUserList()">Add to list</button>
+              <button class="btn btn-default pull-right btn-sm" ng-click="clearList(ACLType)">Clear</button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="acl-rights acl-bulk-rights">
+              <label class="checkbox-inline" ng-repeat="right in data.rights">
+                <div indeterminate-checkbox="userRightPresets[right]" class-name="'user-acl-checkbox'+$index"></div>
+                <!-- <input type="checkbox" class="checkbox style-0" ng-model="userRightPresets[right]"> -->
+                <span>{{right}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade active in acl-tab-pane" ng-class="{hidden:ACLType!='roles'}">
+        <div class="acl-list-wrap">
+          <div class="acl-list">
+            <div class="acl-item blue-fade-5" ng-repeat="role in data.ACL.roles">
+              <table>
+                <tr>
+                  <td>
+                    <div class="acl-name">
+                      {{role.name}}
+                      <span class="sub-name">{{role.uid}}</span>
+                    </div>
+                  </td>
+                  <td class="acl-rights-wrap">
+                    <div class="acl-rights">
+                      <label class="checkbox-inline" ng-repeat="right in data.rights">
+                        <div indeterminate-checkbox="role[right]" class-name="'role-acl1-checkbox'+$index + $parent.$index"></div>
+                        <!-- <input type="checkbox" class="checkbox style-0" ng-model="role[right]"> -->
+                        <span>{{right}}</span>
+                      </label>
+                    </div>
+                  </td>
+                  <td class="remove-acl">
+                    <button type="button" class="close" ng-click='removeACL($index, data.ACL.roles)'>
+                      &times;
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <legend>
+          Add more roles
+        </legend>
+        <div class="row">
+          <div class="col-md-6">
+            <div id="acl-roles-select" class="acl-user-select" acl-select="" data="data" acl-type="roles" selecteddata="rolesSelectedData"></div>
+            <div class="button-wrap mt5">
+              <button class="btn btn-info pull-right ml5 btn-sm" ng-click="addToRolesList()">Add to list</button>
+              <button class="btn btn-default pull-right btn-sm" ng-click="clearList(ACLType)">Clear</button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="acl-rights acl-bulk-rights">
+              <label class="checkbox-inline" ng-repeat="right in data.rights">
+                <div indeterminate-checkbox="roleRightPresets[right]" class-name="'roles-acl-checkbox'+$index"></div>
+                <!-- <input type="checkbox" class="checkbox style-0" ng-model="roleRightPresets[right]"> -->
+                <span>{{right}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade active in acl-tab-pane" ng-class="{hidden:ACLType!='others'}">
+        <div class="acl-list-wrap">
+          <div class="acl-list">
+            <div class="acl-item">
+              <table>
+                <tr>
+                  <td>
+                    <div class="acl-name">
+                      Everyone else
+                    </div>
+                  </td>
+                  <td class="acl-rights-wrap">
+                    <div class="acl-rights">
+                      <label class="checkbox-inline" ng-repeat="right in data.rights">
+                        <div indeterminate-checkbox="data.ACL.others[right]" class-name="'everyone-acl-checkbox'+$index"></div>
+                        <!-- <input type="checkbox" class="checkbox style-0" ng-model="data.ACL.others[right]"> -->
+                        <span>{{right}}</span>
+                      </label>
+                    </div>
+                  </td>
+                  <td class="remove-acl">
+                    <button type="button" class="close v-hidden" ng-click='removeACL($index, data.ACL.roles)'>
+                      &times;
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="button-wrap">
+      <button ng-click='ok()' class="btn btn-primary btn-sm pull-right">
+        <span class="btn-label"><i class="fa fa-check"></i>
+        </span>Done
+      </button>
+      <button ng-click='cancel()' class="btn btn-default btn-sm pull-left">
+        <span class="btn-label"><i class="fa fa-arrow-left"></i>
+        </span>Cancel
+      </button>
+    </div>
+  </div>
+</div>

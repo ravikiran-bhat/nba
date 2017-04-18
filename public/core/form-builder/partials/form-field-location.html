@@ -1,0 +1,31 @@
+<div>
+    <div class="ol-header">
+        <div class="media">
+            <div class="pull-right smart-form">
+            		<label class="toggle">
+            		    <input type="checkbox" name="checkbox-toggle" ng-model="locationStatus" ng-change="locationStatus!=locationStatus">
+            		    <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i>
+            		</label>
+            </div>
+            <div class="media-body">
+                Location
+            </div>
+        </div>    
+    </div>
+    <div class="ol-content" ng-if="hasLocationTag">
+        <div class="row">
+        	<div class="col-sm-6">
+            <label>Latitude </label>
+            <input class="form-control" type="text" ng-model="loc.lat" ng-value="loc.lat" />
+          </div>
+        	<div class="col-sm-6">
+            <label>Longitude </label>
+            <input class="form-control" type="text" ng-model="loc.lng" ng-value="loc.lng" />
+          </div>
+          <div class="col-sm-12">
+          	<div id="js-select2-loc-search" select-location-search search-reference="searchRef" on-selected-reference="onSelectedSearchlocation"></div>
+          </div>
+        </div>
+        
+    </div>
+</div>

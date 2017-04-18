@@ -1,0 +1,65 @@
+<!-- #HEADER -->
+<header id="header">
+  <div id="logo-group">
+    <a id="logo" class="hand" ng-click="showAllApps()">
+      <img src="images/logo/built-io-logo-small.png" alt="built.io backend">
+    </a>
+  </div>
+  <div class="pull-right header-btns header-btns-right">
+    <div class="user-dropdown header-btn" ng-if="userName" title="{{userName}}">
+      <div class="dropdown-toggle" data-toggle="dropdown">
+        <img class="user-icon header-icon" src="images/profile_icon.png" alt="">
+        <i class="fa fa-angle-down hand dropdown-toggle header-icon arrow-icon"></i>
+      </div>
+      <ul class="dropdown-menu dropdown-menu-right with-caret">
+        <li>
+          <a ui-sref="app.account.personalInfo"><i class="fa fa-cogs"></i> Account settings</a>
+        </li>
+        <li>
+          <a ng-click="logout()" class="hand"><i class="fa fa-sign-out"></i> Sign Out</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sep" ng-if="userName"></div>
+
+    <a href="http://docs.built.io/" target="_blank" class="header-btn only-icon header-icon" title="{{$root.productName}} Docs">
+      <i class="fa fa-question-circle"></i></a>
+
+    <a class="header-btn btn btn-default btn-sm btn-toggle-menu visible-xs visible-sm" data-action="toggleMenu">
+      <i class="fa fa-reorder"></i></a>
+
+  </div>
+</header>
+<!-- END HEADER -->
+
+<div class="app-wrap" ui-view></div>
+
+<div class="page-loader body-loader">
+  <div class="logo-cubes">
+    <div class="cube-1 cube"></div>
+    <div class="cube-2 cube"></div>
+    <div class="cube-3 cube"></div>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="col-xs-12 col-md-12 copyright">
+        <span>
+          Copyright © {{year}}
+        </span>
+        <a href="http:///www.built.io" target="_blank" class="">built.io</a> 
+        <span>
+          All Rights Reserved.
+        </span>
+      </div>
+      <p class="footer-text col-xs-12 col-md-12">
+        <a class="no-border" href="mailto:support-backend@built.io" target="_blank">Support</a>
+        <a href="http://built.io/privacy.html" target="_blank">Privacy</a>
+        <a href="http://built.io/termsofservice.html" target="_blank">Terms</a>
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,27 @@
+<div id="main" role='main'>
+    <div class="content animated fadeInDown clearfix">
+        <div class="container accounts-page-wrap">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="well nav-list-wrap">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Profile Settings</li>
+                            <li ng-class="{'active': isActiveState('app.account.personalInfo')}">
+                                <a ui-sref="app.account.personalInfo">Personal information</a>
+                            </li>
+                            <li ng-class="{'active': isActiveState('app.account.security')}">
+                                <a ui-sref="app.account.security">Security</a>
+                            </li>
+                            <li ng-class="{'active': isActiveState('app.account.myAccount')}">
+                                <a ui-sref="app.account.myAccount">My Account</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div ui-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

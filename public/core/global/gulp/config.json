@@ -1,0 +1,15 @@
+{
+  "paths":{
+    "core":{
+      "global":{
+        "directives":{
+          "src" : ["../directives/directives.js"]
+        }
+      }
+    },
+    "build": {
+      "src": ["../../../build"],
+      "dest": "../../../build"
+    }
+  }
+}

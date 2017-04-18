@@ -1,0 +1,44 @@
+<div class="widget-box acc-metrics-widget">
+    <div class="w-head clearfix">
+        <p>Last 30 Days</p>
+        <a ui-sref="app.account.plans">Upgrade</a>
+
+    </div>
+    <div class="w-body">
+        <div class="tab-loader" ng-if="metricsLoader">
+            <img alt="" src="images/loaders/block-loader.gif" />
+        </div>
+        <div ng-hide="metricsLoader" class="animated fadeIn">
+            <div class="w-block">
+                <p class="w-stat">
+                    <span class="value">{{humanizeNumber(apiMetrics.range.overall.total_api_usage)}}</span>
+                    <span class="key">API calls made </span>
+                </p>
+                <div class="w-graph">
+
+                    <div class="api_usage-graph"></div>
+                </div>
+            </div>
+            <div class="w-block mt10">
+                <p class="w-stat">
+                    <span class="value">{{humanizeNumber(apiMetrics.range.overall.push_notifications)}}</span>
+                    <span class="key">push notifications sent </span>
+                </p>
+                <div class="w-graph">
+                    <div class="push_notifications-graph"></div>
+                </div>
+            </div>
+            <div class="w-block mt10">
+                <p class="w-stat">
+                    <span class="value">{{getSize(apiMetrics.range.overall.file_storage_used)}}</span>
+                    <span class="key">storage used </span>
+                </p>
+            </div>
+            <div class="w-block">
+            </div>
+        </div>
+    </div>
+    <div class="w-foot">
+        <a ui-sref="app.account.metrics">View full account metrics</a>
+    </div>
+</div>

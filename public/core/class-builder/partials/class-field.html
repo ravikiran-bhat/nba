@@ -1,0 +1,126 @@
+<div class="cft-row">
+  <div class="cft-row-inner">
+    <div class="chunk-0-5 cf-handle">
+      <i class="fa fa-reorder"></i>
+    </div>
+    <div class="chunk-0-5 cf-boolean hidden-xs hidden-sm">
+      <div class="checkbox cf-radio">
+        <label ng-class="{'hidden':!hideTitleip}">
+          <input type="checkbox" class="checkbox style-0 chk-title"></input>
+          <span></span>
+        </label>
+      </div>
+    </div>
+    <div class="chunk-0-5 cf-boolean">
+      <div class="checkbox cf-radio">
+        <label>
+        <input type="checkbox" class="checkbox style-0 chk-display"></input>
+          <span></span>
+        </label>
+      </div>
+    </div>
+    <div class="chunk-2 bold-text" title="{{field.display_name}}">
+      {{field.display_name}}
+    </div>
+    <div class="chunk-1-5 bold-text hidden-xs hidden-sm" title="{{field.uid}}">
+      {{field.uid}}
+    </div>
+    <div class="chunk-1 hidden-xs hidden-sm">
+      {{field.data_type}}
+    </div>
+    <div class="chunk-1 hidden-xs hidden-sm">
+      <span ng-show="checkUnique(field.unique)">Not unique</span>
+      <span ng-hide="checkUnique(field.uniquePath)">{{displayText}}</span>
+    </div>
+    <div class="chunk-1 cf-boolean hidden-xs hidden-sm">
+      <i class="fa" ng-class="{'true fa-check-square-o': field.multiple, 'fa-square-o': !field.multiple, 'v-hidden': field.data_type=='mixed' || field.data_type=='boolean'}"></i>
+
+    </div>
+    <div class="chunk-1 cf-boolean hidden-xs hidden-sm">
+      <i class="fa" ng-class="{'true fa-check-square-o': field.mandatory, 'fa-square-o': !field.mandatory}"></i>
+    </div>
+    <div class="chunk-1 cf-actions" ng-if="!field.field_metadata.inbuilt_field">
+      <div class="btn-group btn-cf-actions-group">
+        <button class="btn dropdown-toggle btn-xs btn-info" data-toggle="dropdown">
+          <i class="fa fa-cog mr5"></i>  <i class="fa fa-caret-down"></i>
+        </button>
+        <ul class="dropdown-menu pull-right">
+
+          <li ng-if="field.data_type != 'group'" ng-repeat='act in actions'>
+            <a href="" ng-click='performAction(act, field, prop, clss)'><i ng-class="{'fa fa-pencil' : act == 'Edit', 'fa fa-trash-o' : act == 'Delete'}"></i> {{act}} </a>
+          </li>
+          <li ng-if="field.data_type == 'group'" ng-repeat='act in actions'>
+            <a href="" ng-click='performAction(act, field, prop, clss)'><i ng-class="{'fa fa-plus-square text-success':act == 'Add','fa fa-pencil' : act == 'Edit', 'fa fa-trash-o' : act == 'Delete'}"></i> {{act}} </a>
+          </li>
+
+        </ul>
+      </div>
+      <a ng-click='toggleGrp()' ng-if="field.data_type == 'group'" href="" class="btn btn-xs btn-default btn-group-toggle" rel="tooltip" data-placement="left" data-original-title='<i class="fa fa-info-circle text-success"></i>{{grpToggleTxt}} field' data-html="true">
+        <i ng-class="{'fa fa- fa-caret-down':showgrp==true,'fa fa-caret-right':showgrp==false}"></i>
+      </a>
+    </div>
+    <div class="chunk-1 cf-actions" ng-if="field.field_metadata.inbuilt_field && (field.uid !== 'auth_data' && field.uid !== 'authtokens') && (field.data_type=='number' || field.data_type=='text' || field.data_type=='group')">
+      <div class="btn-group btn-cf-actions-group">
+        <button class="btn dropdown-toggle btn-xs btn-info" data-toggle="dropdown">
+          <i class="fa fa-cog mr5"></i>  <i class="fa fa-caret-down"></i>
+        </button>
+        <ul class="dropdown-menu pull-right">
+          <li ng-repeat='act in inbuiltClassActions'>
+            <a href="" ng-click='performInBuiltClassAction(act, field, prop)'><i ng-class="{'fa fa-pencil' : act == 'Edit', 'fa fa-trash-o' : act == 'Delete'}"></i> {{act}} </a>
+          </li>
+        </ul>
+      </div> 
+      <a ng-click='toggleGrp()' ng-if="field.data_type == 'group'" href="" class="btn btn-xs btn-default btn-group-toggle" rel="tooltip" data-placement="left" data-original-title='<i class="fa fa-info-circle text-success"></i>{{grpToggleTxt}} field' data-html="true">
+        <i ng-class="{'fa fa- fa-caret-down':showgrp==true,'fa fa-caret-right':showgrp==false}"></i>
+      </a>
+    </div>
+
+  </div>
+    <!-- <div class="cft-row-meta" ng-show="showFieldMeta">
+      <div class="media">
+          <div class="meta-title">
+            UID : 
+          </div>
+          <div class="media-body">
+            {{field.uid}}
+          </div>
+      </div>
+      <div class="media">
+          <div class="meta-title">
+            Datatype : 
+          </div>
+          <div class="media-body">
+            {{field.data_type}}
+          </div>
+      </div>
+      <div class="media">
+          <div class="meta-title">
+            Unique : 
+          </div>
+          <span ng-show="checkUnique(field.unique)">Not unique</span>
+          <span ng-hide="checkUnique(field.unique)">{{field.unique}}ly unique</span>
+      </div>
+      <div class="media">
+        <div class="meta-title">
+            Multiple :
+        </div>
+        <div class="media-body">
+            {{field.multiple}}
+        </div>
+      </div>
+      <div class="media">
+        <div class="meta-title">
+            Mandatory :
+        </div>
+        <div class="media-body">
+            {{field.mandatory}}
+        </div>
+      </div>
+    </div> -->
+    <div ng-if="field.data_type == 'group'">
+      <div class="cft-group" ng-class="{'hidden': !showgrp}">
+        <div classfieldwrap clssdata="field" allclss="allclss" dtypes="dtypes" grplevelcount="grplevelcount" clss="clss" parent-uid="parentUid ? parentUid + '.' + field.uid: field.uid" parent-field="parentField ? parentField : field" is-group-multiple="field.data_type === 'group' && field.multiple ? true : isGroupMultiple"></div>
+      </div>
+    </div>
+  </div>
+ 

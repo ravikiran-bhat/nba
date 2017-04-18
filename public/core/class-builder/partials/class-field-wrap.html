@@ -1,0 +1,43 @@
+<div>
+  <!-- widget content -->
+  <div class="cft-row-header">
+    <div class="chunk-0-5">
+      Sort
+    </div>
+    <div class="chunk-0-5 hidden-xs hidden-sm">
+      Title
+    </div>
+    <div class="chunk-0-5">
+      Display
+    </div>
+    <div class="chunk-2">
+      Display Name
+    </div>
+    <div class="chunk-1-5 hidden-xs hidden-sm">
+      UID
+    </div>
+    <div class="chunk-1 hidden-xs hidden-sm">
+      Datatype
+    </div>
+    <div class="chunk-1 hidden-xs hidden-sm">
+      Unique
+    </div>
+    <div class="chunk-1 hidden-xs hidden-sm">
+      Multiple
+    </div>
+    <div class="chunk-1 hidden-xs hidden-sm">
+      Mandatory
+    </div>
+    <div class="chunk-1">
+      Actions
+    </div>
+  </div>
+  <!--list-field directive-->
+  <div>
+    <div class="cft-rows-wrap" ui-sortable='sortableOptions' ng-model="clssdata.schema">
+      <div ng-repeat="field in clssdata.schema" classfield field="field" clssdata="clssdata" prop="$index" dtypes="dtypes" allclss="allclss" grplevelcount="grplevelcount" clss="clss" parent-uid="parentUid" parent-field="parentField" is-group-multiple="isGroupMultiple">
+      </div>
+    </div>
+  </div>
+  <!-- end widget content -->
+</div>

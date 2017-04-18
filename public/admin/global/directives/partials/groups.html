@@ -1,0 +1,36 @@
+<div class="groups-wrap">
+  <div class="btn-group" ng-show="showGroupTag">
+    <button class="btn btn-default btn-sm dropdown-toggle btn-choose-group" data-toggle="dropdown">
+      <span class="b-name text-ellipsis" ng-if="!selectedGroup">Groups</span>
+      <span class="b-name text-ellipsis" ng-if="selectedGroup">{{selectedGroup.name}}</span>
+      <span class="caret"></span>
+    </button>
+    <a ng-click="showGroupInput()" ng-if="showGroupTag" class="btn btn-primary btn-sm btn-group">
+      <i class="fa fa-plus fa-fw"></i>
+    </a>
+    <ul class="dropdown-menu">
+      <li ng-repeat="group in groups" ng-if="groups.length">
+        <a ng-click="selectGroup(group)" href="" title="{{group.name}}">
+          {{group.name}}
+        </a>
+        <span class="btn-delete-group" ng-click="removeGroup(group)"><i class="fa fa-times"></i></span>
+      </li>
+      <li ng-if="!groups.length">
+        <p> No groups yet</p>
+      </li>
+    </ul>
+  </div>
+  <div class="input-group" ng-show="!showGroupTag">
+    <input type="text" autofocus class="input-sm form-control js-group-input" ng-model="inputgroup" ng-value="inputgroup" placeholder="Save group as..." ng-keyup="checkKey($event)" /> 
+    <div class="input-group-btn">
+      <button class="btn btn-default btn-sm" type="button" ng-click="hideGroupInput()" ng-disabled="loading">
+        <i class="fa fa-times fa-fw"></i>
+      </button>
+      <button class="btn btn-primary btn-sm" type="button" ng-click="saveGroup()" ng-disabled="loading">
+        <i ng-if="!loading" class="fa fa-check fa-fw"></i>
+        <i ng-if="loading" class="fa fa-spin fa-circle-o-notch fa-fw"></i>
+      </button>
+    </div>
+  </div>
+</div>
+  

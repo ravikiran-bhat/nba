@@ -1,0 +1,13 @@
+{
+  "defaults": {
+    "userSessionTimeout" : null,
+    "version" : "3.2.0.3",
+    "classes": {
+      "editMultiple":true
+    },
+    "settings": {
+      "enableGooglerecaptcha": true,
+      "maximumLoginAttempts":5
+    }
+  }
+}

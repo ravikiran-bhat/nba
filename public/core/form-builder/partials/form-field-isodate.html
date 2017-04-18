@@ -1,0 +1,7 @@
+<div>
+  <input placeholder="Enter date" type="text" class="form-control date-picker pull-left mr10" ng-blur="onDateTimePickerBlur($event)" ng-model="faked.date" ng-keyup="onDPKeyup($event)" data-container="body"/>
+  <input placeholder="Enter time" type="text" class="form-control time-picker pull-left mr10" ng-blur="onDateTimePickerBlur($event)" ng-model="faked.time" ng-keyup="onDPKeyup($event)"/>
+  <select class="pull-left timeZoneSelecter form-control timezone-select" ng-class="{'no-zone': !faked.zone}" ng-options="select as select for select in timeZone" ng-model="faked.zone">
+  	<option value="">No zone</option>
+  </select>
+</div>

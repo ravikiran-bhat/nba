@@ -1,0 +1,67 @@
+{
+  "paths":{
+    "assets":{
+      "less":{
+          "src" : [
+            "../../../assets/smart-admin/less/variables.less",
+            "../../../assets/smart-admin/less/custom-variables.less",
+            "../../../assets/smart-admin/less/smartadmin/plugin-select2.less",
+            "../../../assets/smart-admin/less/smartadmin/plugin-jarviswidget.less",
+            "../../../assets/smart-admin/less/smartadmin/main-form-radiocheck.less",
+            "../../../assets/smart-admin/less/smartadmin/main.less",
+            "../../../assets/less/modules/mixins.less",
+            "../../../assets/less/modules/custom-mixins.less",
+            "../../../assets/less/base.less",
+            "../../../assets/less/t-p-overrides.less",
+            "../../../assets/less/style.less"
+          ]
+        },
+      "fonts":{
+        "src":[
+          "../../../assets/fonts/**"
+        ]
+      },
+      "css":{
+        "src" : [
+        "../../../assets/css/bootstrap.min.css",
+        "../../../assets/css/bootstrap-datetimepicker.min.css",
+        "../../../assets/css/font-awesome.css",
+        "../../../assets/css/summernote.css"
+        ]
+      }
+    },
+    "formbuilder":{
+      "src": ["../**"],
+      "services":{
+        "src":[
+        "../services/**",
+        "../../global/services/alert.js",
+        "../../global/services/app-cache.js",
+        "../../global/services/utils.js",
+        "../../global/services/modal.js",
+        "../../global/services/library.js",
+        "../../global/services/constants.js",
+        "../../global/services/relay.js"
+       ]
+      }
+    }
+    ,
+    "build": {
+      "src": ["../../../build"],
+      "dest": "../../../build",
+      "formbuilder":{
+          "src" : ["../../../build/form-builder.js"]
+        },
+      "services":{
+        "dest": "../../../build/services"
+      },
+      "css":{
+        "src":["../../../build/css/*.css"],
+        "dest":"../../../build/css"
+      },
+      "fonts":{
+        "dest":"../../../build/fonts"
+      }
+    }
+  }
+}

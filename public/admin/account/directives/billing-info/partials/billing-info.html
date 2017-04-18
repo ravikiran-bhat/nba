@@ -1,0 +1,80 @@
+<div>
+  <legend ng-if="!isModal">Billing information</legend>
+  <form role="form" id="billing-info-form" method="POST" action="/v1/accounts/update_billing_info" class="panel billing-info-wrap panel-default" ng-show="brainTreeLoaded && !hasBillingInfo">
+      <div class="panel-heading">
+          <h3 class="panel-title">
+              Enter your card details
+          </h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+            <label for="cardNumber">CARD NUMBER</label>
+            <div class="input-group">
+                <input type="text" class="form-control" required autofocus size="20" autocomplete="off" data-encrypted-name="number" ng-model="billingInfo.number" />
+                <span class="input-group-addon">
+                    <span class="fa fa-credit-card"></span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group cc-date-wrap">
+            <label>EXPIRY DATE</label>
+            <select class="form-control cc-month" data-encrypted-name="month" placeholder="Month">
+                <option value="01">Jan (01)</option>
+                <option value="02">Feb (02)</option>
+                <option value="03">Mar (03)</option>
+                <option value="04">Apr (04)</option>
+                <option value="05">May (05)</option>
+                <option value="06">June (06)</option>
+                <option value="07">July (07)</option>
+                <option value="08">Aug (08)</option>
+                <option value="09">Sep (09)</option>
+                <option value="10">Oct (10)</option>
+                <option value="11">Nov (11)</option>
+                <option value="12">Dec (12)</option>
+            </select>
+            <select class="form-control cc-year" data-encrypted-name="year" placeholder="Year">
+                <option ng-repeat="year in years" value="{{year}}">{{year}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>CVV</label>
+            <input class="form-control cc-cvv" data-encrypted-name="cvv" max="3" type="password" placeholder="" required />
+        </div>
+      </div>
+      <div class="panel-footer">
+  	    	<div class="button-wrap">
+  	    		<button class="btn btn-primary pull-right js-btn-save-card" type="submit" ng-show="!hasBillingInfo" data-loading-text="Please wait...">
+  	          Save card
+  	        </button>
+  	    	</div>
+      </div>
+  </form>
+
+  <div class="billing-info-details" ng-show="brainTreeLoaded && hasBillingInfo">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="media">
+                <div class="pull-left">
+                    <div class="fa fa-credit-card"></div>
+                </div>
+                <div class="media-body">
+                    <div>
+                        <span>Number:</span> {{billingInfo.number}}
+                    </div>
+                    <div class="mt5">
+                        <span>Expiry:</span> {{billingInfo.month}}/{{billingInfo.year}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+              <a class="edit-cc-card hand" ng-click="updateCard()"><i class="fa fa-pencil mr5"></i> Update your card</a>
+        </div>
+    </div>
+  </div>
+
+  <div class="no-msg" ng-if="!brainTreeLoaded">
+    Fetching your card details...
+  </div>
+</div>
+

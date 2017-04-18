@@ -1,0 +1,89 @@
+<form class="form-horizontal class-field-ov" action="" method="" ng-submit="ok()">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click='cancel()'>
+      &times;
+    </button>
+    <h4 class="modal-title">Edit Field</h4>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger alert-block" ng-if="errors.length">
+      <h4 class="alert-heading">Error!</h4>
+      <ul>
+        <li ng-repeat="error in errors">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+    <fieldset>
+      <!-- Default field sets-->
+      <div class="form-group">
+        <label class="col-sm-3 control-label">Display Name</label>
+        <div class="col-sm-7">
+          <input required class="form-control" type="text" ng-model="data.field.display_name" value="{{data.field.display_name}}" disabled>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{'has-error':validUid == false, 'has-success': validUid == true}">
+        <label class="col-sm-3 control-label">UID</label>
+        <div class="col-sm-7">
+          <input required ng-trim="false" class="form-control" type="text" ng-model="data.field.uid" value="data.field.uid" disabled>
+        </div>
+      </div>
+      <div class="form-group" ng-if="data.includeMandatory">
+        <label class="col-xs-5 col-sm-3 control-label">Mandatory</label>
+        <div class="col-xs-7 col-sm-9">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="checkbox style-0" ng-model='data.field.mandatory'>
+              <span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="form-group" ng-if="activeDataType.allow_length_validations">
+        <label class="col-sm-3 control-label">{{data.field.data_type==='number' ? 'Min Value' : 'Min .Length' }}</label>
+        <div class="col-sm-9">
+          <input type="number" class="form-control cf-length-input" ng-model="data.field.min" value="{{data.field.min}}">
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="activeDataType.allow_length_validations">
+        <label class="col-sm-3 control-label">{{data.field.data_type==='number' ? 'Max Value' : 'Max .Length' }}</label>
+        <div class="col-sm-9">
+          <input type="number" class="form-control cf-length-input" ng-model="data.field.max" value="{{data.field.max}}">
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="activeDataType.allow_regex">
+        <label class="col-sm-3 control-label">Format</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" ng-model="data.field.format">
+          <p class="note">
+            Ignore the /.../ just pass the matcher.
+          </p>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="modal-footer">
+    <div class="button-wrap">
+      <a ng-click='cancel()' class="btn btn-default btn-sm pull-left">
+        <span class="btn-label"><i class="fa fa-arrow-left"></i>
+        </span>Cancel
+      </a>
+      <button type="submit" class="btn btn-primary btn-sm pull-right">
+        <span class="btn-label">
+          <i class="fa fa-check"></i>
+        </span>
+        <span ng-if="isNewField">
+          Add field
+        </span>
+        <span ng-if="!isNewField">
+          Done
+        </span>
+      </button>
+    </div>
+  </div>
+</form>

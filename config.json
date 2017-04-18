@@ -1,0 +1,32 @@
+{
+  "localdev": {
+    "proxyTo":{
+      "target" : "http://172.16.0.125:8000/v1"
+    }
+  },
+  "staging": {
+    "proxyTo":{
+      "target" : "https://stag-api.built.io/v1"
+    }    
+  },
+  "development": {
+    "proxyTo":{
+      "target" : "https://dev-notification.built.io/v1"
+    }
+  },
+  "production": {
+    "proxyTo":{
+      "target" : "https://api.built.io/v1"
+    }
+  },
+  "defaults": {
+    "web_ui_api_key" : "607a456d7f3afc20cd9fcb1f",
+    "delim"          : "/v1"
+  },
+  "server": {
+    "port": 8000
+  },
+  "IP" : {
+    "whiteList" :["localhost", "172.16.0.144"]
+  }
+}

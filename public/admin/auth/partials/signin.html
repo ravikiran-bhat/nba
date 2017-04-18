@@ -1,0 +1,37 @@
+<div class="auth-box-wrap animated fadeInDown signin-box">
+  <div class="auth-box login-box">
+    <div class="ab-header">
+      <i class="fa fa-lock"></i> Login to your account
+    </div>
+    <div class="ab-body">
+      <form id="login-form" ng-submit="login(credentials)" name="loginForm" class="" role="form" method="POST" action="" ng-show="!loadingState" autocomplete="off">
+        <label class="no-placeholder">
+          Email address
+        </label>
+        <input class="form-control" placeholder="email address" type="email" name="email" id="email" value="" ng-model="credentials.email" required focus-on-input />
+
+        <label class="no-placeholder">
+          Password
+        </label>
+        <input class="form-control last" placeholder="password" type="password" name="password" value="" ng-model="credentials.password" required>
+
+        <div ng-if="allowCaptcha && enableCaptcha" class="g-recaptcha" vc-recaptcha key="recaptcha.key" on-create="setRecaptchaId(widgetId)"></div>
+
+        <button type="submit" class="btn btn-primary btn-submit btn-block" data-loading-text="Logging in...">
+          Log in to Built.io Backend
+        </button>
+        <p class="mt10 fp-link">
+          <a href="#/user/retrieve-password">forgot password?</a> 
+        </p>
+      </form>
+      <div class="tab-loader" ng-show="loadingState">
+        <img alt="" src="images/loaders/block-loader.gif" />
+      </div>
+    </div>
+    <div class="ab-footer">
+      <p ng-if="!loadingState && !resReg" >
+        Don't have an account yet? <a href="#/signup">Sign Up</a>
+      </p>
+    </div>
+  </div>  
+</div>

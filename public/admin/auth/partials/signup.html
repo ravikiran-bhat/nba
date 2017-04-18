@@ -1,0 +1,83 @@
+<div class="auth-box-wrap animated fadeInDown">
+  <div class="auth-box signup-box">
+    <div class="ab-header" ng-if="!resReg">
+      <span><i class="fa fa-lock fa-fw"></i> Sign Up for an account</span>
+    </div>
+    <div class="ab-header" ng-if="resReg">
+      <span><i class="fa fa-lock"></i> Sign up now for a 90-day free trial of built.io running on VMware vCloud Air.</span>
+    </div>
+    <div class="ab-body" focus-on-input>
+      <form id="signup-form" action="" name="signupForm" method="POST" ng-show="!loadingState" ng-submit="createAccount(userData)" autocomplete="off">
+       <label class="no-placeholder">
+         First name
+       </label>
+       <input class="form-control" type="text" name="firstname" placeholder="first name" ng-model="userData.first_name" focus-on-input>
+       
+       <label class="no-placeholder">
+         Last name
+       </label>
+       <input class="form-control" type="text" name="lastname" placeholder="last name" ng-model="userData.last_name">
+        <!-- <label class="no-placeholder">
+          Username
+        </label>
+        <input class="form-control" type="text" name="username" placeholder="username" ng-model="userData.username"> -->
+        <label class="no-placeholder">
+          Company name
+        </label>
+        <input class="form-control" type="text" name="company" placeholder="company" ng-model="userData.company">
+
+        <label class="no-placeholder">
+          Email address 
+        </label>
+        <input class="form-control" required type="email" name="email" placeholder="email address" ng-model="userData.email" ng-value="userData.email">
+
+        <div class="password-section">
+          <label class="no-placeholder">
+            Password
+          </label>
+          <input class="form-control password-input-field pwd-fields" required type="password" name="password" placeholder="password" id="password" ng-model="userData.password" ng-value="userData.password"  tabindex="0"  data-trigger="focus" data-container="body" data-toggle="popover" data-placement="top" title="Password strength" data-content="<b>Password must contain:</b> <br><i class='fa capital'></i> At least 1 lowercase & 1 uppercase letter <br><i class='fa num'></i> Atleast 1 digit <br><i class='fa length'></i> Atleast 8 characters and max 16 characters <br><i class='fa spchar'></i> Atleast one special character">
+          <div class="passstrength-meter-wrapper">
+           <span class="passwordometer-text" data-password-strength-weak="Weak" data-password-strength-medium="Medium" data-password-strength-okay="OK" data-password-strength-good="Good">
+            </span>
+          </div>
+        </div>
+
+        <label class="no-placeholder">
+          Confirm password
+        </label>
+        <input class="form-control confirm-password pwd-fields" ng-class="{'last': !userData.promoCode}" required type="password" name="passwordConfirm" placeholder="confirm password" ng-model="userData.password_confirmation">
+
+        <label class="no-placeholder">
+          Referral
+        </label>
+        <input ng-if="userData.promo_code" class="form-control last" type="text" placeholder="referral" ng-model="userData.promo_code">
+
+        <!-- <div vc-recaptcha key="model.key"></div> -->
+        <div ng-if="allowCaptcha" class="g-recaptcha" vc-recaptcha key="recaptcha.key" type="'image'" on-create="setRecaptchaId(widgetId)"></div>
+
+        <div class="checkbox chk-terms">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="termAgreement" name="terms">
+            <span>
+              <span>
+                I agree to built.io <a href="http://www.built.io/termsofservice.html" target="_blank">terms & conditions</a> and <a href="http://www.built.io/privacy.html" target="_blank">privacy policy</a>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit btn-block btn-signup" data-loading-text="{{btnLabel.loading}}">
+          {{btnLabel.normal}}
+        </button>
+      </form>
+      <div class="tab-loader" ng-show="loadingState">
+        <img alt="" src="images/loaders/block-loader.gif" />
+      </div>
+    </div>
+    <div class="ab-footer">
+      <p ng-if="!loadingState">
+        Already have an account? <a href="#/signin">Log in</a>
+      </p>
+    </div>
+  </div>
+</div>

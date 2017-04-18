@@ -1,0 +1,14 @@
+<div class="app-select-box hidden-xs hidden-sm">
+	<div class="dropdown-toggle" data-toggle="dropdown" ng-click="onToggle()">
+		<p class="app-name">{{currentApp.name}}</p>
+		<i class="icon-dw fa fa-chevron-down"></i>
+	</div>
+	<ul class="dropdown-menu" id="js-app-menu">
+    <li>
+      <input type="text" placeholder="Search application" class="form-control" ng-model="searchApplicationText" id="ribbon-app-search" ng-blur="onblurAppSelect($event)">
+    </li>
+    <li ng-repeat="app in apps | applicationSearch:searchApplicationText" ng-class="{'active' : app.api_key === currentApp.api_key}">
+      <a ng-click="openApp(app.api_key)" href="" title="{{app.name}}">{{app.name}}</a>
+    </li>
+	</ul>
+</div>

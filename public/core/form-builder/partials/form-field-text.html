@@ -1,0 +1,8 @@
+<!--Initialize summernote when allow_rich_text is mandatorily truthy and multipline may or may not--> 
+<textarea ng-if="field.field_metadata.allow_rich_text" class="form-control richtextarea" summernote config="summernoteConfig" ng-model="ctx[prop]"></textarea>
+
+<!--neither richtet nor multiline -->
+<input type="text" class="form-control" ng-model="ctx[prop]" ng-if="!field.field_metadata.allow_rich_text && !field.field_metadata.multiline" ng-class="prop==='email'? 'disable' : ''">
+
+<!--case if multiline is truthy and rich_text is not-->
+<textarea ng-if="field.field_metadata.multiline && !field.field_metadata.allow_rich_text" class="form-control"  ng-model="ctx[prop]"></textarea>

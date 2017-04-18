@@ -1,0 +1,21 @@
+<div class="tt-wrap pager-widget">
+	<div class="btn-group pager-btns">
+		<button type="button" class="btn btn-default" title="Previous" ng-disabled="!canGoBack" ng-click="prev()">
+			<i class="fa fa-angle-left"></i>
+		</button>
+		<button type="button" class="btn btn-default" title="Next" ng-disabled="!canGoForward" ng-click="next()">
+			<i class="fa fa-angle-right"></i>
+		</button>
+	</div>
+	<div class="ttpw-no pager-status">
+			<b>{{ttData.skip + 1}}</b> - 
+			<b ng-if="count.perPage == ttData.limit">{{ttData.pageNo * count.perPage}} of </b> 
+			<b ng-if="count.perPage < ttData.limit">{{count.total}} of </b> 
+			<b>{{count.total}}</b>
+	</div>
+	<div class="tt-pagn-select pager-count">
+		<select name="repeatSelect" id="repeatSelect" ng-model="pageNo" ng-selected="pageNo" ng-options="page for page in pages">
+      <!-- <option ng-repeat="page in pages" value="{{page}}">{{page}}</option> -->
+    </select>
+	</div>
+</div>

@@ -1,0 +1,162 @@
+.built-logo{
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	width: 32px;
+	height: 40px;
+	.logo-cubes{
+		width: 32px;
+		height: 41px;
+		margin-right: 9px;
+	}
+
+	.logo-text{
+		background: url("../images/logo/logo-head@1x.png") no-repeat scroll 0 0 transparent;
+		width:94px;
+		height:26px;
+		margin-top: 7px;
+	}
+
+	.cube-1{
+		background: url("../images/logo/cube-1@1x.png") no-repeat scroll 0 0 transparent;
+		width:19px;
+		height:19px;
+		position: absolute;
+		top: 0;
+		left: 11.5px;
+		z-index: 1;
+	}
+
+	.cube-2{
+		background: url("../images/logo/cube-2@1x.png") no-repeat scroll 0 0 transparent;
+		width:19px;
+		height:19px;
+		position: absolute;
+		top: 14px;
+		left: 11.5px;
+
+	}
+
+	.cube-3{
+		background: url("../images/logo/cube-3@1x.png") no-repeat scroll 0 0 transparent;
+		width:19px;
+		height:14px;
+		position: absolute;
+		top: 25px;
+		left: 0;
+	}
+}
+
+
+
+/* -------------------------- Animations --------------------------*/
+.cube-3.animate{
+	.animation(cycle-cube-3 2s ease-in-out 0s infinite forwards);
+}
+.cube-2.animate{
+	.animation(cycle-cube-2 2s ease-in-out 0.2s infinite forwards);
+}
+.cube-1.animate{
+	.animation(cycle-cube-1 2s ease-in-out 0.2s infinite forwards);
+}
+
+/* -------------------------- Animation Keyframes --------------------------*/
+
+@-webkit-keyframes cycle-cube-1{
+	0%   {left:11.5px; top:0px;}
+	25%  {left:11.5px; top:14px;}
+	50%  {left:0px; top:14px;}
+	75%  {left:0px; top:0px;}
+	100% {left:11.5px; top:0px;}
+}
+
+@-webkit-keyframes cycle-cube-2{
+	0%   {left:11.5px; top:14px;}
+	25%  {left:0px; top:14px;}
+	50%  {left:0px; top:0px;}
+	75%  {left:11.5px; top:0px;}
+	100%  {left:11.5px; top:14px;}
+}
+
+@-webkit-keyframes cycle-cube-3{
+	0%   {left:0px; top:25px;}
+	25%  {left:0px; top:0px;}
+	50%  {left:11.5px; top:0px;}
+	75%  {left:11.5px; top:25px;}
+	100% {left:0px; top:25px;}
+}
+
+@-moz-keyframes cycle-cube-1{
+	0%   {left:11.5px; top:0px;}
+	25%  {left:11.5px; top:14px;}
+	50%  {left:0px; top:14px;}
+	75%  {left:0px; top:0px;}
+	100% {left:11.5px; top:0px;}
+}
+
+@-moz-keyframes cycle-cube-2{
+	0%   {left:11.5px; top:14px;}
+	25%  {left:0px; top:14px;}
+	50%  {left:0px; top:0px;}
+	75%  {left:11.5px; top:0px;}
+	100%  {left:11.5px; top:14px;}
+}
+
+@-moz-keyframes cycle-cube-3{
+	0%   {left:0px; top:25px;}
+	25%  {left:0px; top:0px;}
+	50%  {left:11.5px; top:0px;}
+	75%  {left:11.5px; top:25px;}
+	100% {left:0px; top:25px;}
+}
+
+
+
+@-o-keyframes cycle-cube-1{
+	0%   {left:11.5px; top:0px;}
+	25%  {left:11.5px; top:14px;}
+	50%  {left:0px; top:14px;}
+	75%  {left:0px; top:0px;}
+	100% {left:11.5px; top:0px;}
+}
+
+@-o-keyframes cycle-cube-2{
+	0%   {left:11.5px; top:14px;}
+	25%  {left:0px; top:14px;}
+	50%  {left:0px; top:0px;}
+	75%  {left:11.5px; top:0px;}
+	100%  {left:11.5px; top:14px;}
+}
+
+@-o-keyframes cycle-cube-3{
+	0%   {left:0px; top:25px;}
+	25%  {left:0px; top:0px;}
+	50%  {left:11.5px; top:0px;}
+	75%  {left:11.5px; top:25px;}
+	100% {left:0px; top:25px;}
+}
+
+
+@keyframes cycle-cube-1{
+	0%   {left:11.5px; top:0px;}
+	25%  {left:11.5px; top:14px;}
+	50%  {left:0px; top:14px;}
+	75%  {left:0px; top:0px;}
+	100% {left:11.5px; top:0px;}
+}
+
+@keyframes cycle-cube-2{
+	0%   {left:11.5px; top:14px;}
+	25%  {left:0px; top:14px;}
+	50%  {left:0px; top:0px;}
+	75%  {left:11.5px; top:0px;}
+	100%  {left:11.5px; top:14px;}
+}
+
+@keyframes cycle-cube-3{
+	0%   {left:0px; top:25px;}
+	25%  {left:0px; top:0px;}
+	50%  {left:11.5px; top:0px;}
+	75%  {left:11.5px; top:25px;}
+	100% {left:0px; top:25px;}
+}

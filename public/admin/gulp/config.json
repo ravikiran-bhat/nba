@@ -1,0 +1,80 @@
+{
+  "env": "dev",
+  "browserify": {
+    "fullPaths": false
+  },
+  "paths": {
+    "public": {
+      "index": {
+        "src": ["../../index.html"]
+      },
+      "manifest":{
+        "src":["../../application.appcache"]
+      }
+    },
+    "admin": {
+      "dest": "../",
+      "js": {
+        "src": ["../admin.js"]
+      }
+    },
+    "assets": {
+      "src": ["../../assets/**"],
+      "js": {
+        "dest": "../../assets/js"
+      },
+      "less": {
+        "all": {
+          "src": [
+            "../../assets/less/base.less",
+            "../../assets/less/t-p-overrides.less",
+            "../../assets/less/main.less",
+            "../../assets/less/style.less",
+            "../../assets/less/responsive.less",
+            "../../assets/less/vendor-fixes.less"
+          ]
+        },
+        "dest": "../../assets/less/",
+        "main": {
+          "src": ["../../assets/less/main.less"]
+        }
+      },
+      "smartAdmin": {
+        "less": {
+          "smartAdminProduction": {
+            "src": ["../../assets/smart-admin/less/smartadmin-production.less"]
+          },
+          "bootstrap": {
+            "src": ["../../assets/smart-admin/less/bootstrap.less"]
+          }
+        }
+      }
+    },
+    "build": {
+      "src": ["../../build"],
+      "dest": "../../build",
+      "assets": {
+        "dest": "../../build",
+        "js": {
+          "dest": "../../build/js"
+        },
+        "css": {
+          "dest": "../../build/css"
+        },
+        "less": {
+          "src": ["../../build/less", "../../build/smart-admin/less"]
+        },
+        "smartAdmin": {
+          "css": {
+            "dest": "../../build/smart-admin/css"
+          }
+        }
+      }
+    },
+    "super_admin": {
+      "gulp": {
+        "src": "../../super-admin/gulp"
+      }
+    }
+  }
+}

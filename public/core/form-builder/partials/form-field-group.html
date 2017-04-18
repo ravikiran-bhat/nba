@@ -1,0 +1,14 @@
+<div class="group-wrap" ng-class="{'multiple group-tracker': field.multiple}" data-name="{{prop}}">
+	<div class="clearfix group-header-wrap" ng-if="field.data_type == 'group' && field.multiple">
+		<div class="header-ctrls" role="menu">
+			<a class="button-icon btn-toggle-group" ng-click="toggleGroup()">
+				<i class="fa fa-caret-down"></i>
+			</a>
+		</div>
+		<span class="header-icon"></span>
+		<h2 class="ml20">{{prop}}</h2>
+		
+	</div>
+  <div ng-if="ctx[prop]" ng-repeat="fld in field.schema" form-field authtoken="authtoken" field="fld" obj="obj" ctx="ctx[prop]" apikey="apikey" apihost="apihost" viewonly="viewonly" classes="classes"  tenant="tenant">
+  </div>
+</div>

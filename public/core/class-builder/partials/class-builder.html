@@ -1,0 +1,190 @@
+<div>
+  <div class="form-actions form-actions-top mb20">
+    <ul class="bootstrapWizard form-wizard clearfix">
+      <li ng-class="{'active': activeStep == classSteps[0]}">
+        <a data-toggle="tab" ng-click="changeStep(classSteps[0], $event)"> <span class="step">1</span> <span class="title">Enter class title and UID</span> </a>
+      </li>
+      <li ng-class="{'active': activeStep == classSteps[1]}">
+        <a ng-click="changeStep(classSteps[1], $event)" data-toggle="tab"> <span class="step">2</span> <span class="title">Add fields</span> </a>
+      </li>
+      <li ng-class="{'active': activeStep == classSteps[2]}">
+        <a ng-click="changeStep(classSteps[2], $event)" data-toggle="tab"> <span class="step">3</span> <span class="title">Configure</span> </a>
+      </li>
+    </ul>
+  </div>
+
+  <!--Create Class-->
+  <div class="row" ng-show="activeStep == classSteps[0]">
+    <div class="col-sm-5 col-sm-offset-3">
+      <fieldset class="cb-step-1">
+        <div class="form-group">
+          <label>Title</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+            <input focus-on-input class="form-control input-lg" required ng-keyup="autoFillUID()" type="text" placeholder="Enter your class title..." ng-model="clssdata.title">
+          </div>
+        </div>
+        <div class="form-group" ng-if="!isNewClass">
+          <label>UID</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+            <input class="form-control input-lg" disabled ng-keyup="autoFillUID()" type="text" placeholder="Enter your class unique identification identity..." ng-model="clssdata.uid">
+          </div>
+        </div>
+        <div class="form-group" ng-if="isNewClass" ng-class="{'has-error':validUid == false, 'has-success': validUid == true}">
+          <label>UID</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+            <input class="form-control input-lg" required ng-keyup="validateUID()" type="text" placeholder="Enter your class unique identification identity..." ng-model="clssdata.uid" value="clssdata.uid">
+          </div>
+          <div class="note" ng-if="isNewClass">
+            Only alphanumeric characters <b>(alphabets, numbers, underscore, hyphen)</b> are allowed.
+          </div>
+        </div>
+        <div class="form-group" ng-if="!clssdata.inbuilt_class">
+          <label>Description</label>
+          <div class="input-group class_desc">
+            <textarea placeholder="Enter description" class="form-control input-lg form-textarea"  ng-model="clssdata.options.classdescription"></textarea>
+          </div>
+          </div>
+        <div class="form-group" ng-if="clssdata.inbuilt_class">
+          <label>Description</label>
+          <div class="input-group class_desc">
+            <textarea disabled placeholder="Enter description" class="form-control input-lg form-textarea"  ng-model="clssdata.options.classdescription"></textarea>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <!--Add Fields-->
+  <div ng-show="activeStep == classSteps[1]" class="classes-active-steps">
+    <div ng-show="clssdata.schema.length != 0">
+      <div class="class-date-row" ng-if="!isNewClass">
+        <div class="alert alert-danger">
+          <h4 class="alert-heading">Caution!</h4> 
+          <!-- Removing a field, modifying it's datatype or toggling it's multiple attribute will result in data loss of that field. -->
+          Removing a field, toggling its uniqueness or multiple attribute, or modifying its datatype or unique path will all result in data loss
+        </div>
+
+        <div class="clearfix cdr-container">
+          <div class="pull-left">Last updated at: <span class="bold-text">{{updated_at}}</span>
+          </div>
+          <div class="pull-right">Created at: <span class="bold-text">{{created_at}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix mb10">
+        <a ng-disabled="clssdata.uid === 'built_io_application_user_role_mapper'" class="btn btn-info pull-left" ng-click='addFields()' ng-class="{'tada': clssdata.schema.length === 0}">
+          <span class="btn-label">
+            <i class="fa fa-plus-square"></i>
+          </span> Add field
+        </a>
+      </div>
+    </div>
+    <div class="text-center clssdata-field" ng-show="clssdata.schema.length === 0">
+      <h4 class="mb20">There are currently no fields in your class</h4>
+      <p>
+        <a class="btn btn-primary btn-lg" ng-click='addFields()'>
+          <span class="btn-label">
+            <i class="fa fa-plus-square"></i>
+          </span> Click to add a field
+        </a>
+      </p>
+    </div>
+
+    <section id="widget-grid" ng-class="{'false-hidden': clssdata.schema.length === 0}" class="classes-widget-grid">
+      <div class="jarviswidget class-field-table-wrap jarviswidget-color-blueDark">
+        <div role='content'>
+          <div class="widget-body class-field-table no-padding">
+            <div classfieldwrap clssdata="clssdata" dtypes="dtypes" grplevelcount="grplevelcount" clss="clssdata"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!--Set Permission-->
+  <div ng-show="activeStep == classSteps[2]">
+    <!--abilities-->
+    <div class="class-abilities-wrap clearfix">
+      <legend>Configure abilities of this class: </legend>
+      <p>The users of this application can </p>
+      <div class="cf-radio-wrap">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="clssdata.abilities.create_object">
+            <span> Create objects</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="clssdata.abilities.get_one_object">
+            <span> View an object</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="clssdata.abilities.get_all_objects">
+            <span> View all objects</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="clssdata.abilities.update_object">
+            <span> Update an object</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="clssdata.abilities.delete_object">
+            <span> Delete an object</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="clssdata.abilities.delete_all_objects">
+            <span> Delete all objects</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!--options-->
+    <div class="class-abilities-wrap">
+      <legend> Default permissions: Access control list (ACL)</legend>
+      <p>You can select each user or role of this class and set its default permissions. <a class="hand" ng-click="configureDefaultACL()">Click here</a> to configure default permissions. </p>
+    </div>
+
+    <!--options-->
+    <div class="class-abilities-wrap">
+      <legend> Inbuilt fields</legend>
+      <p>{{$root.productName}} provides three inbuilt class fields. You can choose to show/hide these fields in your object view.</p>
+      <div class="cf-radio-wrap">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="cfOptions.publish">
+            <span>Show publish option</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="cfOptions.location">
+            <span>Show location</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="cfOptions.tag">
+            <span>Show tags</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="checkbox style-0" ng-model="cfOptions.include_owner">
+            <span>Display owner's email</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>

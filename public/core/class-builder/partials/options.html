@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">
+        ×
+    </button>
+    <h5 class="modal-title">Object options</h5>
+</div>
+<div class="modal-body smart-form class-abilities-wrap">
+    <div class="cf-radio-wrap">
+        <label class="toggle">
+            <input type="checkbox" name="checkbox-toggle" ng-model="options.publish">
+            <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i> Publish
+        </label>
+        <label class="toggle">
+            <input type="checkbox" name="checkbox-toggle" ng-model="options.location">
+            <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i> location
+        </label>
+        <label class="toggle">
+            <input type="checkbox" name="checkbox-toggle" ng-model="options.tag">
+            <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i> Tag
+        </label>
+        
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="button-wrap">
+        <a ng-click='cancel()' class="btn btn-default btn-sm pull-left">
+            <span class="btn-label"><i class="fa fa-arrow-left"></i>
+            </span>Cancel
+        </a>
+        <a ng-click='ok()' class="btn btn-primary btn-sm pull-right">
+            <span class="btn-label"><i class="fa fa-check"></i>
+            </span>Done
+        </a>
+    </div>
+</div>

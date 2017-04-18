@@ -1,0 +1,1 @@
+module.exports = var postMessage = require('./directives/post-message-upload');

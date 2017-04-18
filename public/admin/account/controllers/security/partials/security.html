@@ -1,0 +1,26 @@
+<form class="acc-form" method="PUT" action="" ng-submit="updatePassword()">
+	<fieldset>
+		<legend>Change your password</legend>
+			<div class="form-group">
+				<label>Enter old password</label>
+				<input required class="form-control" type="password" ng-model="user.old_password" focus-on-input>
+			</div>
+			<div class="form-group">
+				<label>Enter new password</label>
+				<input required class="form-control" type="password" ng-model="user.password">
+			</div>
+			<div class="form-group">
+				<label>Confirm password</label>
+				<input required class="form-control" type="password" ng-model="user.password_confirmation">
+			</div>
+			
+      <div class="g-recaptcha" vc-recaptcha key="recaptcha.key" on-create="setRecaptchaId(widgetId)"></div>
+
+			<div class="button-wrap">
+				<button type="submit" class="btn btn-primary pull-left js-btn-update-password" data-loading-text="Updating...">
+		     Update password
+		    </button>
+			</div>
+	</fieldset>
+</form>
+

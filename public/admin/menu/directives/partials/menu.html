@@ -1,0 +1,47 @@
+<aside id="left-panel" ng-show="onSetCurrentApp">
+  <!-- User info -->
+  <div class="login-info hidden">
+    <p>
+      <i class="fa fa-lg fa-fw fa-list-alt mr5 form-icon"></i> 
+      <span class="menu-item-parent">Forms</span>
+      <i class="fa fa-angle ml5"></i>
+    </p>
+  </div>
+  <nav>
+    <ul>
+      <li ng-repeat="menuItem in menu" ng-class="{'active': isActiveMenu(menuItem)}">
+        <a ng-if="menuItem.sub_menu.length" title="{{menuItem.title}}" ng-click="toggleMenu($event, menuItem)">
+          <i class="fa fa-lg fa-fw {{menuItem.icon}}"></i>
+          <span ng-class="{'menu-item-parent':checkIfParent(menuItem)}">{{menuItem.title}}</span>
+        </a>
+
+        <a ng-if="!menuItem.sub_menu.length" class="js-menu-link" data-menu-item="{{menuItem}}" ui-sref="{{menuItem.state}}({{stateQueryParam}})" title="{{menuItem.title}}">
+          <i class="fa fa-lg fa-fw {{menuItem.icon}}"></i>
+          <span ng-class="{'menu-item-parent':checkIfParent(menuItem)}">{{menuItem.title}}</span>
+        </a>
+        <ul ng-if="menuItem.sub_menu.length">
+          <li ng-repeat="subMenuItem in menuItem.sub_menu" ng-class="{'active': isActiveMenu(subMenuItem)}">
+            <a class="js-menu-link" data-menu-item="{{menuItem}}" ui-sref="{{subMenuItem.state}}({{stateQueryParam}})">
+              <i class="fa fa-angle-right"></i>
+              {{subMenuItem.title}}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="dash-app-info">
+        <a>
+          <i class="fa fa-lg fa-fw fa-cube"></i> 
+          Application info
+        </a>
+        <ul>
+          <dl>
+            <dt>API Key</dt>
+            <dd>{{currentApp.api_key}}</dd>
+            <dt ng-if="tenant">Tenant</dt>
+            <dd ng-if="tenant" class="text-ellipsis" title="{{tenant}}">{{tenant}}</dd>
+          </dl>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</aside>

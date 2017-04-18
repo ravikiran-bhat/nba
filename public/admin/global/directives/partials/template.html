@@ -1,0 +1,247 @@
+<div class="template-wrap clearfix">
+  <div class="tc-heading">
+    <h5><b>New Template</b></h5>
+  </div>
+
+  <div class="template-composer-container">
+  	<div class="row">
+      <div class="col-md-6 template-fields">
+    		<!-- Template Name -->
+    		<div class="template-name" ng-if="showTemplateName">
+    			<fieldset>
+            <div class="form-group">
+              <h5 for="name">Template Name</h5>
+              <input type="text" class="form-control" id="name" placeholder="Name" ng-model="templateData.name" ng-value="templateData.name" maxlength="40">
+            </div>
+          </fieldset>
+    		</div>
+
+    		<!-- Message Content -->
+        <div class="template-content message-content-text">
+        	<h5>Message</h5>
+          <div class="tc-group" id="message-content-en">
+           <div class="tcg-panel active">
+              <div class="tcg-heading">
+                <h4 class="tcg-content-title">
+                  English
+                  <small>A message that is presented in your push notification.</small>
+                </h4>
+                <a href="javascript:void(0);" class="toggle-panel" ng-click="togglePanel($event)"><i class="fa"></i></a>
+              </div>
+
+              <div class="tcg-content-body" id="msg-content">
+                <fieldset>
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control content-title" id="title" placeholder="Title" ng-model="templateData.content[0].title" ng-value="templateData.content[0].title" maxlength="40" data-error-text="Title cannot be blank!">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Content</label>
+                    <textarea name="content" class="form-control content-body" rows="3" ng-model="templateData.content[0].body" data-error-text="Content cannot be blank!" ng-value="templateData.content[0].body"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="title">Sub Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Sub Title" ng-model="templateData.content[0].sub_title" ng-value="templateData.content[0].sub_title" maxlength="40">
+                  </div>
+                </fieldset>
+              </div>
+            </div> 
+          </div>
+          <div class="tc-group" id="message-content" ng-repeat="content in templateData.content">
+           <div class="tcg-panel active" ng-if="$index!==0">
+              <div class="tcg-heading">
+                <h4 class="tcg-content-title">
+                  {{languages[content.locale]}}
+                </h4>
+                <div class="panel-widgets">
+                  <button type="button" class="close btn-delete-cre" ng-click="removeLanguage($index,content.locale)">×</button>                      
+                </div>
+              </div>
+
+              <div class="tcg-content-body" id="msg-content1">
+                <fieldset>
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Title" maxlength="40" ng-model="templateData.content[$index].title" ng-value="templateData.content[$index].title">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Content</label>
+                    <textarea name="content" class="form-control" rows="3" ng-model="templateData.content[$index].body" ng-value="templateData.content[$index].body"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="title">Sub Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Sub Title" ng-model="templateData.content[$index].sub_title" ng-value="templateData.content[$index].sub_title" maxlength="40">
+                  </div>
+                </fieldset>
+              </div>
+            </div> 
+          </div>
+          <button class="btn btn-primary pull-right" ng-click="selectLanguages()">Add Another Language</button>
+        </div>
+        
+        <!-- Batch Count -->
+        <div class="batch-count template-content">
+          <h5 for="name">Badge</h5>
+          <input class="form-control n-badge-count" type="text" ng-model="templateData.badge" data-error-text="Please enter a valid number!"/>
+          <p class="note">
+            <b>iOS only: </b> Specify a badge count. If left blank, any existing badge count will be incremented. Enter '-1' to leave the badge count unchanged.
+          </p>
+        </div>
+        
+        <!-- Message Action -->
+        <div class="template-content message-action">
+          <h5>Message Action</h5>
+          <div class="tc-group">
+            <input type="hidden" class="js-message-action-select"/>
+            <input type="text" class="form-control" placeholder="Enter Action Target" ng-value="templateData.push_action" ng-model="templateData.push_action" ng-readonly="templateData.push_action==='home'" />
+          </div>
+        </div>
+
+        <div class="template-content message-options">
+          <h5>Message Options</h5>
+          <div class="tc-group">
+            <!--Buttons Starts-->
+            <div class="tcg-panel">
+              <div class="tcg-heading">
+                <h4 class="tcg-content-title">
+                  <label>Buttons</label>
+                  <small>Add interactivity to push notifications with one or two buttons</small>
+                </h4>
+                <a href="javascript:void(0);" class="toggle-panel" ng-click="togglePanel($event)"><i class="fa fa-plus"></i></a>
+              </div>
+              <div class="tcg-content-body">
+                <div class="btn-group btn-group-justified custom-btns">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary" ng-click="selectButtonsModal()" ng-show="!pushNotificationButtons.length">Select Buttons
+                    </button>
+                  </div>
+                  <div class="btn-group" role="group">
+                   <button type="button" class="btn btn-primary" ng-click="selectCustomButtonsModal()" ng-show="!pushNotificationButtons.length">Custom Buttons
+                   </button>
+                  </div>
+                </div>
+                <div class="buttons-content" ng-repeat="btn in templateData.buttons">
+                  <h4>{{btn.text}}</h4>
+                  <div class="tc-group">
+                    <input ng-if="btn.action !== 'dismiss'" type="hidden" class="buttons-select-js js-btn-action-select-{{btn.id}}"/>
+                    <input type="text" class="form-control" placeholder="Enter Action Target" ng-value="btn.action" ng-model="btn.action" ng-readonly="btn.action==='home'" />
+                  </div>
+                  <button type="button" class="remove-btn" data-dismiss="modal" aria-hidden="true" ng-click="removeButton($index)">×</button>
+                </div>
+              </div>
+            </div>
+            <!--Buttons Ends-->
+            
+            <!-- Media -->
+            <div class="tcg-panel" id="media-content">
+              <div class="tcg-heading">
+                <h4 class="tcg-content-title">
+                  <label>Media</label>
+                  <small>Include an media for the push notification</small>                    
+                </h4>
+                <a href="javascript:void(0);" class="toggle-panel" ng-click="togglePanel($event)"><i class="fa fa-plus"></i></a>                  
+              </div>
+
+              <div class="tcg-content-body" id="media-body">
+                <label>Image</label>
+                <input type="text" placeholder="http://" class="form-control" ng-keyup="onMediaKeyup($event, 'image')" ng-value="templateData.image" ng-model="templateData.image"/>
+              </div>
+              <div class="tcg-content-body" id="media-body1">
+                <label>Background Image</label>
+                <input type="text" placeholder="http://" class="form-control" ng-keyup="onMediaKeyup($event, 'bimage')" ng-value="templateData.bimage" ng-model="templateData.bimage"/>
+              </div>
+              <div class="tcg-content-body" id="media-body4">
+                <label>Background Color</label>
+                <input type="text" placeholder="#ffffff or white" class="form-control" ng-keyup="onMediaKeyup($event, 'bcolor')" ng-value="templateData.bcolor" ng-model="templateData.bcolor"/>
+              </div>
+              <div class="tcg-content-body" id="media-body2">
+                <label>Video</label>
+                <input type="text" placeholder="http://" class="form-control" ng-value="templateData.video" ng-model="templateData.video"/>
+              </div>
+              <div class="tcg-content-body" id="media-body3">
+                <label>Small Icon</label>
+                <input type="text" placeholder="http://" class="form-control" ng-value="templateData.small_icon" ng-model="templateData.small_icon"/>
+              </div>
+              <div class="tcg-content-body" id="media-body4">
+                <label>Large Icon</label>
+                <input type="text" placeholder="http://" class="form-control" ng-value="templateData.large_icon" ng-model="templateData.large_icon"/>
+              </div>
+            </div>
+            <!-- Media -->
+
+            <!-- data -->
+            <div class="tcg-panel data-wrap">
+              <div class="tcg-heading">
+                <h4 class="tcg-content-title">
+                  <label>Extra Data</label>
+                  <small>Some Detail about Extra Data</small>
+                </h4>
+                <a href="javascript:void(0);" class="toggle-panel" ng-click="togglePanel($event)"><i class="fa fa-plus"></i></a>
+              </div>
+              <div class="tcg-content-body">
+                <div class="data-content" ng-repeat="data in dataArray">
+                  <input type="text" placeholder="key" ng-value="data.key" class="form-control" ng-model="data.key" />
+                  <input type="text" placeholder="value" ng-value="data.value" class="form-control" ng-model="data.value" />
+                  <button ng-click="removeData($index)" class="close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <button ng-click="addData()" class="btn btn-primary extra-data-btn"> <span><i class="fa fa-plus"></i></span>Add Data</button>
+              </div>                 
+            </div>
+
+            <!-- collapse_id -->
+            <div class="tcg-panel data-wrap">
+              <div class="tcg-heading">
+                <h4 class="tcg-content-title">
+                  <label>Others</label>
+                  <small>Other message options comes here</small>
+                </h4>
+                <a href="javascript:void(0);" class="toggle-panel" ng-click="togglePanel($event)"><i class="fa fa-plus"></i></a>
+              </div>
+              <div class="tcg-content-body">
+                <div class="collapse_value">
+                  <h6>Collapse value:</h6>
+                  <input class="form-control" placeholder="Any string value" ng-model="templateData.collapse_id"/>
+                </div>
+
+                <div class="silent_push">
+                  <h6>Silent Push:</h6>
+                  <select ng-model="templateData.silent_push" class="form-control">
+                    <option ng-value="false" >False</option>
+                    <option ng-value="true">True</option>
+                  </select>
+                </div>
+              </div>                 
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="message-content-preview">
+          <div class='sample-device mcp-hold'>
+            <div class='sd-main'>
+              <div class='sd-inner'>
+               <div class="sdi-message">
+                 <p>{{templateData.content[0].title || "Sample Alert"}}</p>
+               </div>
+               <div class="sdi-media-block">
+                 <img src={{templateData.image}} class="media-image">
+               </div>
+               <div class="sdi-btn-block" ng-show="templateData.buttons.length">
+                 <div ng-repeat="btns in templateData.buttons">{{btns.text}}</div>
+               </div>
+              </div>
+            </div>
+            <div class="sdi-sub">
+              <div class="sdi-top"></div>
+              <div class="sdi-mid">
+                <div class="sdi-part"></div>
+              </div>
+              <div class="sdi-bot"></div>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
+</div>

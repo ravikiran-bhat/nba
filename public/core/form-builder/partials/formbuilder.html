@@ -1,0 +1,88 @@
+<div class="fb-group-ribbon">
+    <ol class="breadcrumb">
+        <i class="fa fa-indent ribbon-icon"></i>
+        <li ng-repeat='g in groupRibbon track by $index'>
+            <a ng-click="scrollTo(g.id)">{{g.name}}</a>
+        </li>
+    </ol>
+</div>
+
+<form class="form-horizontal object-form" role="form"  focus-on-input="focusOptions">
+    <div class="form-group form-field-wrap" ng-show="obj.uid">
+        <label class="col-sm-2 control-label">Unique ID</label>
+        <div class="col-sm-10">
+            <input type="text" disabled="disabled" ng-model="obj.uid" class="form-control" />
+        </div>
+    </div>
+    <div ng-repeat="field in cls.schema" form-field field="field" obj="obj" ctx="obj" apikey="apikey" authtoken="authtoken" apihost="apihost" viewonly="viewonly" classes="classes" tenant="tenant"  cls="cls">
+    </div>
+    <!-- app user role specific code -->
+    <div class="role-user-section clearfix"  ng-if="cls.uid === 'built_io_application_user_role' && !viewonly">
+        <label class="col-sm-2 control-label user-label"><i class="fa fa-info-circle help-icon mr5" ng-click="getHelp()"></i>
+          Users
+        </label>
+        <div class="col-sm-10 rus-content clearfix">
+            <div class="rus-radio-btn-wrap clearfix">
+                <div class="pull-right">
+                    <legend class="smart-form enable-users">
+                        <label class="toggle">
+                            <input type="checkbox" name="checkbox-toggle" ng-model="enableUsersInAppRole" ng-change="toggleUsersExists()"><i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i>
+                        </label>
+                    </legend>
+                </div>
+                <div class="radio pull-left">
+                    <label>
+                    <input type="radio" class="radiobox style-0 ng-pristine ng-valid" ng-model="userSelectMethod" value="manual" name="role-users" ng-click="changeUserSelectMethod($event.currentTarget.value)" ng-disabled="!enableUsersInAppRole">
+                       <span>Add Manually</span>
+                    </label>
+                </div>
+                <div class="radio pull-left ml10">
+                    <label>
+                        <input type="radio" class="radiobox style-0 ng-pristine ng-valid" ng-model="userSelectMethod" value="query" name="role-users" ng-click="changeUserSelectMethod($event.currentTarget.value)" ng-disabled="!enableUsersInAppRole">
+                        <span>Make query</span>
+                    </label>
+                </div>
+                
+            </div>
+            <div class="rus-section" ng-class="{'disableRusSelect': !enableUsersInAppRole}">
+              <div class="rus-select" ng-if="userSelectMethod==='manual'">
+                <div form-field-reference-wrap field="appUserRoleField" obj="obj" ctx="appUserRoleCtx" apikey="apikey" on-add="onAdd" on-remove="onRemove" viewonly="viewonly" cls="cls">
+                </div>
+              </div>
+              <div ng-if="userSelectMethod==='query'" class="rus-query-wrap">
+                <div ng-if="!!appUserClass">
+                    <div objects-query-builder="intermediateQuery" cls="appUserClass" get-query-now="getQueryNow" get-query-callback="getQueryCallback" api-key="apiKey" auth-token="authToken" api-host="apiHost" prefix="prefix" class="qb-responsive"></div>
+                    <label class="col-sm-1 control-label ">Skip</label>
+                    <input type="number" class="input-sm form-control ng-valid skip" ng-model="obj.users.skip">
+                    <label class="col-sm-1 control-label ">Limit</label>
+                    <input type="number" class="input-sm form-control ng-valid limit" ng-model="obj.users.limit">
+                </div>
+                <div ng-if="!appUserClass">
+                    Fetching application user class
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-field-wrap" ng-show="configureFieldOptions.tag">
+        <label class="col-sm-2 control-label">Tags</label>
+        <div class="col-sm-10">
+            <div form-field-tag obj="obj" class="object-tags-input"></div>
+        </div>
+    </div>
+    <div class="form-group form-field-wrap" ng-if="!viewonly && configureFieldOptions.publish">
+        <label class="col-sm-2 control-label">Publish this object</label>
+        <div class="col-sm-10">
+            <div class="checkbox">
+              <label>
+                  <input type="checkbox" class="checkbox style-0" ng-model="obj.published">
+                  <span></span>
+              </label>
+            </div>
+        </div>
+    </div>
+    <div class="object-location-wrap" ng-show="configureFieldOptions.location">
+        <div form-field-location  obj="obj"></div>
+        <div id="object-geo-location-map"></div>
+    </div>
+</form>

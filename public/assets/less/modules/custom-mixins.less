@@ -1,0 +1,98 @@
+//============================================================
+// Opacity
+//
+// @param @opacity          :  0 to 100;
+//============================================================
+
+.opacity(@opacity) {
+  opacity: @opacity / 100;
+  filter: ~"alpha(opacity=@{opacity})";
+}
+
+
+//============================================================
+// bg-pos
+//
+// @param @opacity          :  0 to 100;
+//============================================================
+
+.bg-pos(@x, @y){
+    background-position: ~"@{x}px @{y}px";
+}
+
+.dim(@width, @height){
+    width: ~"@{width}px";
+    height: ~"@{height}px";
+}
+
+
+.padding-loop (@index) when (@index > -1) {
+  
+  .pt@{index} {
+     padding-top: ~"@{index}px";
+  }
+  .pr@{index} {
+     padding-right: ~"@{index}px";
+  }
+  .pb@{index} {
+     padding-bottom: ~"@{index}px";
+  }
+  .pl@{index} {
+     padding-left: ~"@{index}px";
+  }
+
+  .padding-loop(@index - 5);
+}
+
+
+.margin-loop (@index) when (@index > -1) {
+  
+  .mt@{index} {
+     margin-top: ~"@{index}px";
+  }
+  .mr@{index} {
+     margin-right: ~"@{index}px";
+  }
+  .mb@{index} {
+     margin-bottom: ~"@{index}px";
+  }
+  .ml@{index} {
+     margin-left: ~"@{index}px";
+  }
+
+  .margin-loop(@index - 5);
+}
+
+.font-loop (@index, @limit) when (@index =< @limit) {
+  
+  .fs-@{index} {
+     font-size: ~"@{index}px";
+  }
+
+  .font-loop (@index + 1, @limit);
+}
+
+
+.selection(@bg, @color){
+  ::-webkit-selection {
+    background: @bg; 
+    color: @color;
+    }
+  ::-moz-selection {
+    background: @bg; 
+    color: @color;
+  }
+  ::-o-selection {
+    background: @bg; 
+    color: @color;
+  }
+  ::-ms-selection {
+    background: @bg; 
+    color: @color;
+  }
+
+  ::selection {
+    background: @bg; 
+    color: @color;
+  }
+}

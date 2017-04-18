@@ -1,0 +1,11 @@
+<div class="auth-box-wrap animated fadeInDown">
+  <div class="auth-box login-box">
+    <div class="ab-body">
+      <div class="tab-loader" ng-show="activationStatus=='checking'">
+        <img alt="" src="images/loaders/block-loader.gif" />
+      </div>
+      <div class="no-msg" ng-show="activationStatus=='success'" class="no-msg">Your account has been activated successfully!</div>
+      <div class="no-msg" ng-show="activationStatus=='fail'" class="no-msg">Please try again later!</div>
+    </div>
+  </div>
+</div>

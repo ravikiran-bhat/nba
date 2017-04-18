@@ -1,0 +1,27 @@
+{
+	"localdev": {
+    "classes": {
+      "editMultiple":true
+    }
+  },
+  "staging": {
+    "classes": {
+      "editMultiple":true
+    }
+  },
+  "development": {
+    "classes": {
+      "editMultiple":true
+    }
+  },
+  "production": {
+    "classes": {
+      "editMultiple":true
+    }
+  },
+	"defaults": {
+		"classes": {
+    	"editMultiple":true
+  	}
+	}
+}

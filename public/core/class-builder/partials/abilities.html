@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">
+        ×
+    </button>
+    <h5 class="modal-title">Clients of this application can</h5>
+</div>
+<div class="modal-body smart-form class-abilities-wrap">
+    <div class="cf-radio-wrap">
+        <label class="toggle">
+            <input type="checkbox" name="checkbox-toggle" ng-model="abilities.create_object">
+            <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i> Create objects
+        </label>
+        <label class="toggle">
+            <input type="checkbox" name="checkbox-toggle" ng-model="abilities.get_one_object">
+            <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i> View an object
+        </label>
+        <label class="toggle">
+            <input type="checkbox" name="checkbox-toggle" ng-model="abilities.get_all_objects">
+            <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i> View all objects
+        </label>
+        <label class="toggle">
+            <input type="checkbox" name="checkbox-toggle" ng-model="abilities.update_object">
+            <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i> Update an object
+        </label>
+        <label class="toggle">
+            <input type="checkbox" name="checkbox-toggle" ng-model="abilities.delete_object">
+            <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i> Delete an object
+        </label>
+        <label class="toggle">
+            <input type="checkbox" name="checkbox-toggle" ng-model="abilities.delete_all_objects">
+            <i data-swchon-text="ON" data-swchoff-text="OFF" class="sf-toggle"></i> Delete all objects
+        </label>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="button-wrap">
+        <a ng-click='cancel()' class="btn btn-default btn-sm pull-left">
+            <span class="btn-label"><i class="fa fa-arrow-left"></i>
+            </span>Cancel
+        </a>
+        <a ng-click='ok()' class="btn btn-primary btn-sm pull-right">
+            <span class="btn-label"><i class="fa fa-check"></i>
+            </span>Done
+        </a>
+    </div>
+</div>

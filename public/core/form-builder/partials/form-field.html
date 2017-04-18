@@ -1,0 +1,90 @@
+<div ng-class="{'group-outer-wrap group-tracker': field.data_type == 'group'}" data-name="{{field.display_name}}">
+
+  <div class="clearfix group-header-wrap" ng-if="field.data_type == 'group'">
+    <div class="header-ctrls" role="menu">
+      <a class="button-icon btn-toggle-group" ng-click="toggleGroup()" ng-hide="(field.multiple == true && ctx[field.uid].length == 0)">
+        <i class="fa fa-caret-down"></i>
+      </a>
+      <a href="javascript:void(0);" ng-if="(field.multiple == true && ctx[field.uid].length == 0) && !viewonly" ng-click="onAdd()" class="button-icon" rel="tooltip" title="" data-placement="bottom" data-original-title="Add"><i class="fa fa-plus"></i></a>
+    </div>
+    <span class="header-icon"> <i class="fa fa-lg fa-indent"></i> 
+    </span>
+    <h2><sup ng-if="field.mandatory" class="m-star">*</sup> {{field.display_name}}</h2>
+  </div>
+
+  <div id="js-isodatepicker-wrap"></div>
+  <div ng-switch on="multiple" class="form-group rch-txt-wrap">
+    <label ng-if="field.data_type != 'group'" class="col-sm-2 control-label">
+      <sup ng-if="field.mandatory" class="m-star">*</sup> {{field.display_name}}
+    </label>
+
+    <div ng-switch-when="reference" class="form-field-wrap col-sm-10 object-reference-wrap">
+      <div form-field-reference-wrap field="field" obj="obj" ctx="ctx" apikey="apikey" on-add="onAdd" on-remove="onRemove" viewonly="viewonly">
+      </div>
+    </div>
+
+    <!--UI reference-->
+    <div class="form-field-wrap col-sm-10 object-reference-wrap" ng-if="field.data_type === 'ui_reference' && field.multiple">
+      <div form-field-ui-reference-wrap field="field" obj="obj" ctx="ctx" apikey="apikey" viewonly="viewonly" classes="classes">
+      </div>
+    </div>
+    <!--UI reference\-->
+
+    <div ng-switch-when="true" ng-class="{'col-sm-12': field.data_type == 'group', 'col-sm-10': field.data_type != 'group'}" sv-root sv-part="ctx[field.uid]" class="js-as-sortable sortable-container" sv-on-sort="onSortField()" sv-on-start="startSort($item, $part, $index, $helper)">
+
+      <a href="" ng-if='(ctx[field.uid].length == 0 && field.data_type != "group") && !viewonly && (field.data_type !== "ui_reference")' ng-click="onAdd()" class="btn add-field btn-info btn-sm mb15"><i class="fa fa-plus"></i></a>
+      <span href="" ng-if='(ctx[field.uid].length == 0 && field.data_type != "group") && viewonly' class="btn btn-link btn-sm mb15" disabled>---</span>
+
+      <div class="form-fields-multiple-wrap" ng-repeat="dat in ctx[field.uid] track by $index" ng-switch on="field.data_type" sv-element="sortableOptions">
+        <div class="media">
+          <div class="pull-right grp-multiple-btn-wrap" ng-if='(field.data_type == "group") && !viewonly && (field.data_type !== "ui_reference")'>
+            <div class="btn-group">
+              <a href="" ng-click="onRemove($index)" class="btn btn-danger remove-field btn-sm {{$index}}"><i class="fa fa-minus"></i></a>
+              <a href="" ng-class="{'v-hidden': !$last}" ng-click="onAdd()" class="btn btn-info add-field btn-sm"><i class="fa fa-plus"></i></a>
+            </div>
+          </div>
+          <div ng-class="{'mr10 pull-left': field.data_type != 'group','media-body': field.data_type == 'group'}">
+            <div class="form-field-wrap" ng-switch-when="text" form-field-text field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" viewonly="viewonly"></div>
+            <div class="form-field-wrap" ng-switch-when="password" form-field-password field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" viewonly="viewonly"></div>
+            <div class="form-field-wrap" ng-switch-when="string" form-field-text field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" viewonly="viewonly"></div>
+            <div class="form-field-wrap" ng-switch-when="number" form-field-number field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" viewonly="viewonly"></div>
+            <div class="form-field-wrap object-isodate-wrap" ng-switch-when="isodate" form-field-isodate field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" viewonly="viewonly"></div>
+            <div class="form-field-wrap" ng-switch-when="boolean" form-field-boolean field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" viewonly="viewonly"></div>
+            <div class="form-field-wrap" ng-switch-when="link" form-field-link field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" viewonly="viewonly"></div>
+            <div class="form-field-wrap" ng-switch-when="mixed" form-field-mixed field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" viewonly="viewonly"></div>
+            <div class="form-field-wrap object-select-wrap" ng-switch-when="select" form-field-select field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" viewonly="viewonly"></div>
+            <div class="form-field-wrap" ng-switch-when="group" authtoken="authtoken" form-field-group viewonly="viewonly" field="field" obj="obj" ctx="ctx[field.uid]" prop="$index" apikey="apikey"  apihost="apihost" viewonly="viewonly" classes="classes"  tenant="tenant"></div>
+            <div class="form-field-wrap object-file-wrap" ng-switch-when="file" form-field-file field="field" obj="obj" ctx="ctx[field.uid]" authtoken="authtoken" prop="$index" apikey="apikey" apihost="apihost" viewonly="viewonly" tenant="tenant"></div>
+
+            <!--The below code is made hidden beoz of ui-reference-->
+            <div class="form-field-wrap hidden" ng-switch-default form-field-text viewonly="viewonly" field="field" obj="obj" ctx="ctx[field.uid]" prop="$index"></div>
+          </div>
+          <div class="pull-left" ng-if='(field.data_type != "group") && !viewonly && (field.data_type != "ui_reference")'>
+            <div class="btn-group">
+              <a href="" ng-click="onRemove($index)" class="btn btn-danger remove-field btn-sm {{$index}}"><i class="fa fa-minus"></i></a>
+              <a href="" ng-if="$last" ng-click="onAdd()" class="btn btn-info add-field btn-sm"><i class="fa fa-plus"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="fa fa-reorder field-sort-handle" ng-class="{'btn-group-reorder': field.data_type == 'group'}" title="Drag to sort" sv-handle></div>
+        <div sv-placeholder class="ui-sortable-placeholder"></div>
+      </div>
+
+    </div>
+
+    <div ng-switch-when="false" ng-switch on="field.data_type" ng-class="{'col-sm-12': field.data_type == 'group', 'col-sm-10': field.data_type != 'group'}">
+      <div class="form-field-wrap" ng-switch-when="text" viewonly="viewonly" form-field-text field="field" obj="obj" ctx="ctx" prop="field['uid']"></div>
+      <div class="form-field-wrap" ng-switch-when="password" viewonly="viewonly" form-field-password field="field" obj="obj" ctx="ctx" prop="field['uid']"></div>
+      <div class="form-field-wrap" ng-switch-when="string" viewonly="viewonly" form-field-text field="field" obj="obj" ctx="ctx" prop="field['uid']"></div>
+      <div class="form-field-wrap" ng-switch-when="number" viewonly="viewonly" form-field-number field="field" obj="obj" ctx="ctx" prop="field['uid']"></div>
+      <div class="form-field-wrap object-isodate-wrap" viewonly="viewonly" ng-switch-when="isodate" form-field-isodate field="field" obj="obj" ctx="ctx" prop="field['uid']"></div>
+      <div class="form-field-wrap" ng-switch-when="boolean" viewonly="viewonly" form-field-boolean field="field" obj="obj" ctx="ctx" prop="field['uid']"></div>
+      <div class="form-field-wrap" ng-switch-when="link" viewonly="viewonly" form-field-link field="field" obj="obj" ctx="ctx" prop="field['uid']"></div>
+      <div class="form-field-wrap" ng-switch-when="mixed" viewonly="viewonly" form-field-mixed field="field" obj="obj" ctx="ctx" prop="field['uid']"></div>
+      <div class="form-field-wrap" ng-switch-when="group" authtoken="authtoken" form-field-group viewonly="viewonly" field="field" obj="obj" ctx="ctx" prop="field['uid']" apikey="apikey" apihost="apihost" classes="classes"  tenant="tenant"></div>
+      <div class="form-field-wrap object-file-wrap" ng-switch-when="file" form-field-file field="field" authtoken="authtoken" obj="obj" ctx="ctx" prop="field['uid']" apikey="apikey" apihost="apihost" viewonly="viewonly" tenant="tenant"></div>
+      <div class="form-field-wrap object-select-wrap" ng-switch-when="select" form-field-select field="field" authtoken="authtoken" obj="obj" ctx="ctx" prop="field['uid']" apikey="apikey" apihost="apihost" viewonly="viewonly"></div>
+      <div ng-switch-default form-field-text viewonly="viewonly" field="field" obj="obj" ctx="ctx" prop="field['uid']"></div>
+    </div>
+  </div>
+</div>
